@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
+import Modal from '../template/Modal'
 import { toast } from 'react-toastify';
 
 const headerProps = {

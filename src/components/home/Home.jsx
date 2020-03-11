@@ -6,7 +6,7 @@ export default props =>
         subtitle="Primeiro projeto React.">
         <div className="display-4">Bem vindo!</div>
         <hr/>
-        <p className="mb-0">
-            C R U D  de usuários com json-server
+        <p className="mb-0">  
+            <i className="fa fa-user-circle-o"> <strong>C R U D</strong> </i> de usuários com json-server  
         </p>
     </Main>
