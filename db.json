@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Yan Corona Vírussss",
+      "email": "Yan@vexpenses.com"
+    },
+    {
+      "name": "Guizera de la Massa",
+      "email": "guilhermecardoso@teste.com.br",
+      "id": 2
+    },
+    {
+      "name": "Victor 2, o Original",
+      "email": "victor.jacomo@vexpenses.com",
+      "id": 3
+    },
+    {
+      "name": "Rodrigooo Vietnã",
+      "email": "rodrigo.caponetto@vexpenses.com",
+      "id": 4
+    }
+  ]
+}

@@ -18,6 +18,13 @@ const initialState = {
 
 export default class UserCrud extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.remove = this.remove.bind(this);
+    }
+
+
     notifySuccess = (msg) => toast.success(`👌 ${msg}!`, {
         position: "top-center",
         autoClose: 5000,
@@ -63,7 +70,7 @@ export default class UserCrud extends Component {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
-                            <label>Nome</label>
+                            <label><strong>Nome</strong></label>
                             <input type="text" className="form-control"
                             name="name"
                             value={this.state.user.name}
@@ -75,7 +82,7 @@ export default class UserCrud extends Component {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
-                             <label>E-mail</label>
+                            <label><strong>E-mail</strong></label>
                             <input type="text" className="form-control"
                             name="email"
                             value={this.state.user.email}
@@ -98,8 +105,6 @@ export default class UserCrud extends Component {
                                 Cancelar
                         </button>
                     </div>
-                <ModalConfirmation>
-                </ModalConfirmation>
                 </div>
             </div>
         )
@@ -125,7 +130,7 @@ export default class UserCrud extends Component {
 
     renderTable() {
         return (
-            <table className="table mt-4 col-sm-6">
+            <table className="table mt-4 col-sm-12">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -154,10 +159,15 @@ export default class UserCrud extends Component {
                             onClick={() => this.load(user)}>
                                 <i className="fa fa-pencil"></i>
                         </button>
-                        <button className="btn btn-danger ml-2"
-                            onClick={() => this.remove(user)}>
-                            <i className="fa fa-trash"></i>
-                        </button>
+                        <ModalConfirmation
+                            title="Confirmar exclusão"
+                            saveButtonHandler={this.remove}
+                            user={this.state.user}
+                            buttonColor="danger"
+                            buttonMsg={<i className="fa fa-trash"></i>}
+                        >
+                            Tem certeza que deseja excluir o usuário?
+                        </ModalConfirmation>
                     </td>
                 </tr>
             )
