@@ -64,8 +64,8 @@ export default class UserCrud extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label>Nome</label>
-                            <input type="text" className="form-control" 
-                            name="name" 
+                            <input type="text" className="form-control"
+                            name="name"
                             value={this.state.user.name}
                             onChange={e => this.updateField(e)}
                             placeholder="Digite o nome do usuário..."/>
@@ -76,8 +76,8 @@ export default class UserCrud extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                              <label>E-mail</label>
-                            <input type="text" className="form-control" 
-                            name="email" 
+                            <input type="text" className="form-control"
+                            name="email"
                             value={this.state.user.email}
                             onChange={e => this.updateField(e)}
                             placeholder="Digite o e-mail do usuário..."/>
@@ -156,7 +156,7 @@ export default class UserCrud extends Component {
                         </button>
                         <button className="btn btn-danger ml-2"
                             onClick={() => this.remove(user)}>
-                            <i className="fa fa-trash"></i>    
+                            <i className="fa fa-trash"></i>
                         </button>
                     </td>
                 </tr>
