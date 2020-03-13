@@ -27,6 +27,7 @@ export default props =>
                 rtl={false}
                 pauseOnVisibilityChange
                 draggable
-                pauseOnHover/>
+                pauseOnHover
+            />
         </div>
     </BrowserRouter>

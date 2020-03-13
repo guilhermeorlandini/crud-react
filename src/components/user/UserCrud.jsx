@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Main from '../template/Main'
-import Modal from '../template/Modal'
 import { toast } from 'react-toastify';
+import ModalConfirmation from '../modal/ModalConfirmation'
 
 const headerProps = {
     icon: 'users',
@@ -98,6 +98,8 @@ export default class UserCrud extends Component {
                                 Cancelar
                         </button>
                     </div>
+                <ModalConfirmation>
+                </ModalConfirmation>
                 </div>
             </div>
         )
@@ -138,6 +140,7 @@ export default class UserCrud extends Component {
             </table>
         )
     }
+
 
     renderRow() {
         return this.state.list.map(user => {
