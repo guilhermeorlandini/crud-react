@@ -1,24 +1,28 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Yan Corona Vírussss",
-      "email": "Yan@vexpenses.com"
+      "name": "Victor",
+      "email": "victor@vexpenses.com",
+      "id": 2,
+      "phone": "169933831"
     },
     {
-      "name": "Guizera de la Massa",
-      "email": "guilhermecardoso@teste.com.br",
-      "id": 2
-    },
-    {
-      "name": "Victor 2, o Original",
-      "email": "victor.jacomo@vexpenses.com",
+      "name": "Guilherme Cardoso Orlandini",
+      "email": "guilhermecorlandini@gmail.com",
+      "phone": "16993382721",
       "id": 3
     },
     {
-      "name": "Rodrigooo Vietnã",
-      "email": "rodrigo.caponetto@vexpenses.com",
-      "id": 4
+      "name": "Olé",
+      "email": "eaea",
+      "phone": "3144141414",
+      "id": 5
+    },
+    {
+      "name": "Pokemon",
+      "email": "peixe@poke.com.br",
+      "phone": "123123123",
+      "id": 6
     }
   ]
 }

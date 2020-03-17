@@ -3,6 +3,9 @@ import axios from 'axios'
 import Main from '../template/Main'
 import { toast } from 'react-toastify';
 import ModalConfirmation from '../modal/ModalConfirmation'
+import ModalEdit from '../modal/ModalEdit'
+import Flash from '../flash/Flash'
+import { Table } from 'react-bootstrap'
 
 const headerProps = {
     icon: 'users',
@@ -12,7 +15,7 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:3001/users'
 const initialState = {
-    user: {name: '', email: ''},
+    user: {name: '', email: '', phone: ''},
     list: []
 }
 
@@ -30,7 +33,16 @@ export default class UserCrud extends Component {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
+        draggable: true,
+        })
+
+    notifyLoad = (msg) => toast.info(`😸 ${msg}!`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
         draggable: true,
         })
 
@@ -55,13 +67,35 @@ export default class UserCrud extends Component {
                 const list = this.getUpdatedList(resp.data)
                 this.setState({ user: initialState.user, list})
             })
-        this.notifySuccess('Registro salvo com sucesso')
+        
+        method === 'post'
+        ? this.notifySuccess(`${user.name} criado com sucesso`)
+        : this.notifySuccess(`${user.name} editado com sucesso`)
     }
 
     updateField(event) {
         const user = { ...this.state.user }
         user[event.target.name] = event.target.value
         this.setState({ user })
+    }
+
+
+    renderButtons() {
+        return (
+            <div className="row">
+                <div className="col-sm-6 d-flex justify-content-start">
+                    <button className="btn btn-success"
+                        onClick={e => this.save(e)}>
+                            Salvar
+                    </button>
+
+                    <button className="btn btn-warning ml-2"
+                        onClick={e => this.clear(e)}>
+                            Limpar
+                    </button>
+                </div>
+            </div>
+        )
     }
 
     renderForm() {
@@ -91,21 +125,19 @@ export default class UserCrud extends Component {
                         </div>
                     </div>
                 </div>
-
-                <hr />
                 <div className="row">
-                    <div className="col-sm-6 d-flex justify-content-start">
-                        <button className="btn btn-success"
-                            onClick={e => this.save(e)}>
-                                Salvar
-                        </button>
-
-                        <button className="btn btn-danger ml-2"
-                            onClick={e => this.clear(e)}>
-                                Cancelar
-                        </button>
+                    <div className="col-sm-6">
+                        <div className="form-group">
+                            <label><strong>Telefone</strong></label>
+                            <input type="text" className="form-control"
+                            name="phone"
+                            value={this.state.user.phone}
+                            onChange={e => this.updateField(e)}
+                            placeholder="Digite o telefone do usuário..."/>
+                        </div>
                     </div>
                 </div>
+                <hr />
             </div>
         )
     }
@@ -118,6 +150,7 @@ export default class UserCrud extends Component {
 
     load(user) {
         this.setState({ user })
+        this.notifyLoad(`${user.name} está pronto para ser editado`)
     }
 
     remove(user) {
@@ -130,19 +163,20 @@ export default class UserCrud extends Component {
 
     renderTable() {
         return (
-            <table className="table mt-4 col-sm-12">
+            <Table hover className="mt-4 col-sm-12">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>E-mail</th>
+                        <th>Fone</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {this.renderRow()}
                 </tbody>
-            </table>
+            </Table>
         )
     }
 
@@ -154,19 +188,24 @@ export default class UserCrud extends Component {
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
+                    <td>{user.phone}</td>
                     <td>
-                        <button className="btn btn-warning"
-                            onClick={() => this.load(user)}>
-                                <i className="fa fa-pencil"></i>
-                        </button>
+                        <ModalEdit
+                            title="Edição de usuário"
+                            loadButtonHandler={(e) => this.load(user)}
+                            saveButtonHandler={(e) => this.save(user)}
+                            buttonColor="warning"
+                            buttonMsg={<i className="fa fa-pencil"></i>}
+                        >
+                                {this.renderForm()}
+                        </ModalEdit>
                         <ModalConfirmation
-                            title="Confirmar exclusão"
-                            saveButtonHandler={this.remove}
-                            user={this.state.user}
+                            title="Confirmar exclusão de usuário"
+                            saveButtonHandler={(e) => this.remove(user)}
                             buttonColor="danger"
                             buttonMsg={<i className="fa fa-trash"></i>}
                         >
-                            Tem certeza que deseja excluir o usuário?
+                            Tem certeza que deseja excluir  {user.name}? 
                         </ModalConfirmation>
                     </td>
                 </tr>
@@ -178,7 +217,9 @@ export default class UserCrud extends Component {
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderButtons()}
                 {this.renderTable()}
+                <Flash />
             </Main>
         )
     }
